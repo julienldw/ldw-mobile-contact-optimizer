@@ -1,0 +1,112 @@
+# Copyright (C) 2015 LDW Mobile Contact Optimizer
+# This file is distributed under the same license as the LDW Mobile Contact Optimizer package.
+msgid ""
+msgstr ""
+"Project-Id-Version: LDW Mobile Contact Optimizer 0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ldw-mobile-"
+"contact-optimizer\n"
+"POT-Creation-Date: 2015-10-28 12:52:46+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: index.php:55
+msgid "Datas"
+msgstr ""
+
+#: index.php:56
+msgid "Phone number"
+msgstr ""
+
+#: index.php:57
+msgid "E-mail address"
+msgstr ""
+
+#: index.php:58
+msgid "Location map link"
+msgstr ""
+
+#: index.php:60
+msgid "Settings"
+msgstr ""
+
+#: index.php:61
+msgid "Max width"
+msgstr ""
+
+#: index.php:62
+msgid "Icons color"
+msgstr ""
+
+#: index.php:63
+msgid "Background color"
+msgstr ""
+
+#: index.php:64
+msgid "Border color"
+msgstr ""
+
+#: index.php:65
+msgid "Other settings"
+msgstr ""
+
+#: index.php:74
+msgid ""
+"In pixels, maximum screen width from which the buttons are no longer "
+"displayed."
+msgstr ""
+
+#: index.php:102
+msgid "Activate the “back to top” link."
+msgstr ""
+
+#: index.php:104
+msgid "Embed myself the CSS code."
+msgstr ""
+
+#: index.php:133
+msgid "Need help? Any improvement ideas?"
+msgstr ""
+
+#: index.php:133
+msgid "Contact us!"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (LDW Mobile Contact Optimizer 0.1)  #-#-#-#-#
+#. Description of the plugin/theme
+#: index.php:137
+msgid "Don’t waste any contact! Be reached in 1 click from mobile."
+msgstr ""
+
+#: index.php:138
+msgid ""
+"Add links (phone, e-mail address and location map) available at all times at "
+"the bottom of your pages."
+msgstr ""
+
+#: index.php:146
+msgid "Generated CSS code."
+msgstr ""
+
+#: index.php:147
+msgid ""
+"By default, the CSS code is automatically added to the bottom of your HTML "
+"pages. If you check \"embed myself the CSS code\" in the form above, the "
+"automatic code is disabled and you just have to place it in the style.css "
+"file of your theme."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "LDW Mobile Contact Optimizer"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Lamour du Web"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://lamourduweb.com"
+msgstr ""
