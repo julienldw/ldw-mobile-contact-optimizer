@@ -198,7 +198,7 @@ submit_button();
         width:100%; height:50px;
         background:<?php echo $ldw_mco['bg']; ?>; z-index:9999;
     }
-    #ldw-mco ul{ list-style:none; text-align:center; border-top:1px solid <?php echo $ldw_mco['border']; ?>; margin:0;}
+    #ldw-mco ul{ list-style:none; text-align:center; border-top:1px solid <?php echo $ldw_mco['border']; ?>; margin:0; padding-left: 0;}
     #ldw-mco ul li i{ font-size:30px; line-height:50px; color:<?php echo $ldw_mco['icon']; ?>;}
     #ldw-mco ul li:last-child{ border-right:none;}
     <?php if($ldw_mco['backtotop'] == 'on'){ ?>
