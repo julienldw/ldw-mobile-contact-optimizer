@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:    LDW Mobile Contact Optimizer
-Version:    0.1.2
+Version:    0.1.3
 Author: Lamour du Web
 Description:    Don’t waste any contact! Be reached in 1 click from mobile.
 Author URI: http://lamourduweb.com
@@ -134,8 +134,8 @@ class LDW_Mobile_Contact_Optimizer{
 <label for="ldw_mco_backtotop"><input type="checkbox" name="ldw_mco[backtotop]" id="ldw_mco_backtotop" <?php if($options['backtotop'] == 'on') echo 'checked="checked"'; ?>><?php _e('Activate the “back to top” link.','ldw_mco'); ?></label>
 <br><br>
  <label for="ldw_mco_css"><input type="checkbox" name="ldw_mco[css]" id="ldw_mco_css" <?php if($options['css'] == 'on') echo 'checked="checked"'; ?>><?php _e('Embed myself the CSS code.','ldw_mco'); ?></label>
-<?php /*<br><br>
- <label for="ldw_mco_custom"><input type="checkbox" name="ldw_mco[custom]" id="ldw_mco_custom" <?php if($options['custom'] == 'on') echo 'checked="checked"'; ?>><?php _e('Allows data customization by pages.','ldw_mco'); ?></label>*/ ?>
+<br><br>
+ <label for="ldw_mco_custom"><input type="checkbox" name="ldw_mco[custom]" id="ldw_mco_custom" <?php if($options['custom'] == 'on') echo 'checked="checked"'; ?>><?php _e('Allows data customization by pages.','ldw_mco'); ?></label>
 <?php }
 
     function admin_page(){
