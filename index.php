@@ -4,37 +4,38 @@ Plugin Name:    LDW Mobile Contact Optimizer
 Version:    0.1.2
 Author: Lamour du Web
 Description:    Don’t waste any contact! Be reached in 1 click from mobile.
-Author URI: http://lamourduweb.com 
+Author URI: http://lamourduweb.com
 Text Domain:    ldw_mco
 Domain Path:    /lang
+GitHub Plugin URI: https://github.com/julienldw/ldw-mobile-contact-optimizer
 */
 
 class LDW_Mobile_Contact_Optimizer{
-    
+
     function __construct() {
-		add_action('admin_menu', array($this, 'admin_menu') ); 
+		add_action('admin_menu', array($this, 'admin_menu') );
         add_action('wp_footer', array($this, 'wp_footer') );
         add_action('admin_init', array($this,'admin_init') );
         add_action('wp_enqueue_scripts',array($this,'enqueue_scripts') );
         add_action( 'plugins_loaded', array($this,'load_plugin_textdomain') );
-        add_action( 'add_meta_boxes', array($this,'add_meta_boxes' ) );    
+        add_action( 'add_meta_boxes', array($this,'add_meta_boxes' ) );
         add_action('save_post', array($this,'save_metaboxes') );
         register_activation_hook( __FILE__, array( $this, 'install' ) );
-    }    
-    
+    }
+
     function add_meta_boxes() {
         $options = get_option('ldw_mco');
         if($options['custom'] == 'on')
             add_meta_box( 'ldw-mco', 'Mobile Contact Optimizer', array($this,'metabox_callback'), 'page' );
     }
-    
+
     function save_metaboxes($post_ID){
         $options = get_option('ldw_mco');
         if($options['custom'] == 'on'){
             update_post_meta($post_ID, '_ldw_custom',$_POST['ldw_mco']);
         }
-    }    
-    
+    }
+
     function metabox_callback($post){
         $options = get_post_meta($post->ID,'_ldw_custom', true);
         if(!is_array($options)) $options = array('phone'=>'','email'=>'','mapurl'=>'');
@@ -42,14 +43,14 @@ class LDW_Mobile_Contact_Optimizer{
 <p><?php _e('Leave blank for no customization.','ldw_mco'); ?></p>
 <p><label for="ldw_phone"><?php _e('Phone number','ldw_mco'); ?></label><br><input type="tel" id="ldw_phone" name="ldw_mco[phone]" value="<?php echo $options['phone']; ?>"/></p>
 <p><label for="ldw_email"><?php _e('E-mail address','ldw_mco'); ?></label><br><input type="email" id="ldw_email" name="ldw_mco[email]" value="<?php echo $options['email']; ?>"/></p>
-<p><label for="ldw_mapurl"><?php _e('Location map link','ldw_mco'); ?></label><br><input type="url" id="ldw_mapurl" name="ldw_mco[mapurl]" value="<?php echo $options['mapurl']; ?>"/></p>      
+<p><label for="ldw_mapurl"><?php _e('Location map link','ldw_mco'); ?></label><br><input type="url" id="ldw_mapurl" name="ldw_mco[mapurl]" value="<?php echo $options['mapurl']; ?>"/></p>
         <?php
-    }    
-    
+    }
+
     function load_plugin_textdomain() {
         load_plugin_textdomain( 'ldw_mco', FALSE, basename( dirname( __FILE__ ) ) . '/lang/' );
-    }    
-    
+    }
+
     function install(){
         if(false == get_option('ldw_mco')){
              update_option('ldw_mco',array(
@@ -62,73 +63,73 @@ class LDW_Mobile_Contact_Optimizer{
                     'border'    => '#E9F2F9',
                     'backtotop' => 'on',
                     'css'       => ''
-             ));              
+             ));
         }
     }
-    
+
     function enqueue_scripts(){
-	   wp_enqueue_script('ldw-mco', plugins_url( 'assets/js/script.js' , __FILE__ ),array('jquery')); 
-	   wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'); 
-    }    
-    
+	   wp_enqueue_script('ldw-mco', plugins_url( 'assets/js/script.js' , __FILE__ ),array('jquery'));
+	   wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+    }
+
     function admin_menu(){
-        $page_hook_suffix = add_options_page('LDW Mobile Contact Optimizer','LDW Mobile Contact Optimizer', 'manage_options','ldw-mco',array($this,'admin_page')); 
+        $page_hook_suffix = add_options_page('LDW Mobile Contact Optimizer','LDW Mobile Contact Optimizer', 'manage_options','ldw-mco',array($this,'admin_page'));
         add_action('admin_print_scripts-' . $page_hook_suffix, array( $this, 'wp_enqueue_scripts'));
     }
 
     function wp_enqueue_scripts(){
         wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script( 'wp-color-picker' );    
+        wp_enqueue_script( 'wp-color-picker' );
     }
-    
+
     function admin_init(){
-        
-        add_settings_section('ldw_mco_data',__('Datas','ldw_mco'),'','ldw-mco');        
+
+        add_settings_section('ldw_mco_data',__('Datas','ldw_mco'),'','ldw-mco');
         add_settings_field('ldw_mco_phone',__('Phone number','ldw_mco'),array($this,'phone_callback'),'ldw-mco','ldw_mco_data',array('label_for' => 'ldw_phone'));
         add_settings_field('ldw_mco_email',__('E-mail address','ldw_mco'),array($this,'email_callback'),'ldw-mco','ldw_mco_data',array('label_for' => 'ldw_email'));
         add_settings_field('ldw_mco_mapurl',__('Location map link','ldw_mco'),array($this,'mapurl_callback'),'ldw-mco','ldw_mco_data',array('label_for' => 'ldw_mapurl'));
-        
+
         add_settings_section('ldw_mco_setting',__('Settings','ldw_mco'),'','ldw-mco');
         add_settings_field('ldw_mco_width',__('Max width','ldw_mco'),array($this,'width_callback'),'ldw-mco','ldw_mco_setting',array('label_for' => 'ldw_width'));
         add_settings_field('ldw_mco_icon',__('Icons color','ldw_mco'),array($this,'icon_callback'),'ldw-mco','ldw_mco_setting',array('label_for' => 'ldw_icon'));
         add_settings_field('ldw_mco_bg',__('Background color','ldw_mco'),array($this,'bg_callback'),'ldw-mco','ldw_mco_setting',array('label_for' => 'ldw_bg'));
         add_settings_field('ldw_mco_border',__('Border color','ldw_mco'),array($this,'border_callback'),'ldw-mco','ldw_mco_setting',array('label_for' => 'ldw_border'));
         add_settings_field('ldw_mco_others',__('Other settings','ldw_mco'),array($this,'others_callback'),'ldw-mco','ldw_mco_setting');
-        
-        
-        register_setting('ldw-mco','ldw_mco');      
+
+
+        register_setting('ldw-mco','ldw_mco');
     }
-    
-    function width_callback(){ 
+
+    function width_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="text" id="ldw_width" name="ldw_mco[width]" value="<?php echo $options['width']; ?>"/>
 <p class="description"><?php _e('In pixels, maximum screen width from which the buttons are no longer displayed.','ldw_mco'); ?></p>
 <?php }
-    function phone_callback(){ 
+    function phone_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="tel" id="ldw_phone" name="ldw_mco[phone]" value="<?php echo $options['phone']; ?>"/>
-<?php }   
-    function email_callback(){ 
+<?php }
+    function email_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="email" id="ldw_email" name="ldw_mco[email]" value="<?php echo $options['email']; ?>"/>
-<?php } 
-    function mapurl_callback(){ 
+<?php }
+    function mapurl_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="url" id="ldw_mapurl" name="ldw_mco[mapurl]" value="<?php echo $options['mapurl']; ?>"/>
 <?php }
-    function icon_callback(){ 
+    function icon_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="text" id="ldw_icon" name="ldw_mco[icon]" class="color" value="<?php echo $options['icon']; ?>"/>
-<?php }    
-    function bg_callback(){ 
+<?php }
+    function bg_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="text" id="ldw_bg" name="ldw_mco[bg]" class="color" value="<?php echo $options['bg']; ?>"/>
-<?php }    
-    function border_callback(){ 
+<?php }
+    function border_callback(){
         $options = get_option('ldw_mco'); ?>
 <input type="text" id="ldw_border" name="ldw_mco[border]" class="color" value="<?php echo $options['border']; ?>"/>
-<?php }   
-    function others_callback(){ 
+<?php }
+    function others_callback(){
         $options = get_option('ldw_mco'); ?>
 <label for="ldw_mco_backtotop"><input type="checkbox" name="ldw_mco[backtotop]" id="ldw_mco_backtotop" <?php if($options['backtotop'] == 'on') echo 'checked="checked"'; ?>><?php _e('Activate the “back to top” link.','ldw_mco'); ?></label>
 <br><br>
@@ -136,13 +137,13 @@ class LDW_Mobile_Contact_Optimizer{
 <?php /*<br><br>
  <label for="ldw_mco_custom"><input type="checkbox" name="ldw_mco[custom]" id="ldw_mco_custom" <?php if($options['custom'] == 'on') echo 'checked="checked"'; ?>><?php _e('Allows data customization by pages.','ldw_mco'); ?></label>*/ ?>
 <?php }
-    
+
     function admin_page(){
         $ldw_mco = get_option('ldw_mco');
-        ?>  
+        ?>
         <style>
         #ldw-mco-css{
-            padding:10px; background:#dfdfdf;   
+            padding:10px; background:#dfdfdf;
         }
         #ldw-mco-settings{ overflow:hidden;}
         #ldw-mco-credits{
@@ -164,17 +165,17 @@ class LDW_Mobile_Contact_Optimizer{
             <div id="ldw-mco-credits">
                 <p><a href="http://lamourduweb.com" target="_blank"><img src="<?php echo plugins_url( 'assets/lamour-du-web.png', __FILE__ ); ?>" alt="Lamour du Web" /></a></p>
                 <p><?php _e('Need help? Any improvement ideas?','ldw_mco'); ?> <a href="http://lamourduweb.com/contact" target="_blank"><?php _e('Contact us!','ldw_mco'); ?></a></p>
-                
-            </div>            
+
+            </div>
             <div id="ldw-mco-settings">
                 <p><?php _e('Don’t waste any contact! Be reached in 1 click from mobile.','ldw_mco'); ?></p>
                 <p><?php _e('Add links (phone, e-mail address and location map) available at all times at the bottom of your pages.','ldw_mco'); ?></p>
                 <form action="options.php" method="post">
-<?php 
-settings_fields( 'ldw-mco' );	                                        
+<?php
+settings_fields( 'ldw-mco' );
 do_settings_sections( 'ldw-mco' );
 submit_button();
-?>                
+?>
                 </form>
                 <h3><?php _e('Generated CSS code.','ldw_mco'); ?></h3>
                 <p><?php _e('By default, the CSS code is automatically added to the bottom of your HTML pages. If you check "embed myself the CSS code" in the form above, the automatic code is disabled and you just have to place it in the style.css file of your theme.','ldw_mco'); ?></p>
@@ -189,7 +190,7 @@ submit_button();
     function mco_css($ldw_mco){
         ?>#ldw-mco{
     display:none;
-} 
+}
 @media (max-width: <?php echo $ldw_mco['width']; ?>px) {
     body{ margin-bottom:50px;}
     #ldw-mco{ display:block;}
@@ -205,19 +206,19 @@ submit_button();
     #ldw-mco ul li{ display:block; float:left; width:25%; border-right:1px solid <?php echo $ldw_mco['border']; ?>;box-sizing: border-box;}
     <?php } else { ?>
     #ldw-mco ul li{ display:block; float:left; width:33%; border-right:1px solid <?php echo $ldw_mco['border']; ?>;box-sizing: border-box;}
- 
+
     <?php } ?>
 }<?php
     }
-    
+
     function wp_footer(){
         global $post;
-        
+
         $ldw_mco = get_option('ldw_mco');
         if($ldw_mco['custom'] == 'on'){
             $options = get_post_meta($post->ID,'_ldw_custom', true);
             if(!is_array($options)) $options = array('phone'=>'','email'=>'','mapurl'=>'');
-            
+
             if(strlen($options['phone'])>0) $ldw_mco['phone'] = $options['phone'];
             if(strlen($options['email'])>0) $ldw_mco['email'] = $options['email'];
             if(strlen($options['mapurl'])>0) $ldw_mco['mapurl'] = $options['mapurl'];
