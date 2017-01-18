@@ -1,13 +1,12 @@
 <?php
 /*
 Plugin Name:    LDW Mobile Contact Optimizer
-Version:    0.1.3
+Version:    0.2
 Author: Lamour du Web
 Description:    Don’t waste any contact! Be reached in 1 click from mobile.
 Author URI: http://lamourduweb.com
 Text Domain:    ldw_mco
 Domain Path:    /lang
-GitHub Plugin URI: https://github.com/julienldw/ldw-mobile-contact-optimizer
 */
 
 class LDW_Mobile_Contact_Optimizer{
@@ -131,11 +130,11 @@ class LDW_Mobile_Contact_Optimizer{
 <?php }
     function others_callback(){
         $options = get_option('ldw_mco'); ?>
-<label for="ldw_mco_backtotop"><input type="checkbox" name="ldw_mco[backtotop]" id="ldw_mco_backtotop" <?php if($options['backtotop'] == 'on') echo 'checked="checked"'; ?>><?php _e('Activate the “back to top” link.','ldw_mco'); ?></label>
+<label for="ldw_mco_backtotop"><input type="checkbox" name="ldw_mco[backtotop]" id="ldw_mco_backtotop" <?php if(@$options['backtotop'] == 'on') echo 'checked="checked"'; ?>><?php _e('Activate the “back to top” link.','ldw_mco'); ?></label>
 <br><br>
- <label for="ldw_mco_css"><input type="checkbox" name="ldw_mco[css]" id="ldw_mco_css" <?php if($options['css'] == 'on') echo 'checked="checked"'; ?>><?php _e('Embed myself the CSS code.','ldw_mco'); ?></label>
+ <label for="ldw_mco_css"><input type="checkbox" name="ldw_mco[css]" id="ldw_mco_css" <?php if(@$options['css'] == 'on') echo 'checked="checked"'; ?>><?php _e('Embed myself the CSS code.','ldw_mco'); ?></label>
 <br><br>
- <label for="ldw_mco_custom"><input type="checkbox" name="ldw_mco[custom]" id="ldw_mco_custom" <?php if($options['custom'] == 'on') echo 'checked="checked"'; ?>><?php _e('Allows data customization by pages.','ldw_mco'); ?></label>
+ <label for="ldw_mco_custom"><input type="checkbox" name="ldw_mco[custom]" id="ldw_mco_custom" <?php if(@$options['custom'] == 'on') echo 'checked="checked"'; ?>><?php _e('Allows data customization by pages.','ldw_mco'); ?></label>
 <?php }
 
     function admin_page(){
@@ -199,7 +198,7 @@ submit_button();
         width:100%; height:50px;
         background:<?php echo $ldw_mco['bg']; ?>; z-index:9999;
     }
-    #ldw-mco ul{ list-style:none; text-align:center; border-top:1px solid <?php echo $ldw_mco['border']; ?>; margin:0; padding-left: 0;}
+    #ldw-mco ul{ list-style:none; text-align:center; border-top:1px solid <?php echo $ldw_mco['border']; ?>; margin:0; padding-left:0;}
     #ldw-mco ul li i{ font-size:30px; line-height:50px; color:<?php echo $ldw_mco['icon']; ?>;}
     #ldw-mco ul li:last-child{ border-right:none;}
     <?php if($ldw_mco['backtotop'] == 'on'){ ?>
@@ -215,7 +214,7 @@ submit_button();
         global $post;
 
         $ldw_mco = get_option('ldw_mco');
-        if($ldw_mco['custom'] == 'on'){
+        if(@$ldw_mco['custom'] == 'on'){
             $options = get_post_meta($post->ID,'_ldw_custom', true);
             if(!is_array($options)) $options = array('phone'=>'','email'=>'','mapurl'=>'');
 
@@ -232,7 +231,7 @@ submit_button();
                 <?php if($ldw_mco['backtotop'] == 'on'){ ?><li class="ldw_mco_backtotop"><a href="#top"><i class="fa fa-arrow-up"></i></a></li><?php } ?>
             </ul>
         </div>
-        <?php if($ldw_mco['css'] != 'on'){ ?>
+        <?php if(@$ldw_mco['css'] != 'on'){ ?>
         <style>
         <?php $this->mco_css($ldw_mco); ?>
         </style>
