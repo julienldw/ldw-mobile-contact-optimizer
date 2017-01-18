@@ -2,8 +2,8 @@
 Contributors: lamourduweb,julienappert
 Tags: footer, mobile, contact, phone, e-mail, location map
 Requires at least: 4.3
-Tested up to: 4.4.2
-Stable tag: 0.1.2
+Tested up to: 4.7.1
+Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ Don’t waste any contact! Be reached in 1 click from mobile.
 
 == Description ==
 
-Don’t waste any contact! Be reached in 1 click from mobile. 
+Don’t waste any contact! Be reached in 1 click from mobile.
 
 LDW Mobile Contact Optimizer add links (phone, e-mail address and location map) available at all times at the bottom of your pages.
 
@@ -28,6 +28,9 @@ LDW Mobile Contact Optimizer add links (phone, e-mail address and location map) 
 
 == Changelog ==
 
+= 0.2 =
+data customization by page
+fix bug css
 
 = 0.1.2 =
 fix bug css.
